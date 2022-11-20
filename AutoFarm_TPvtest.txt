@@ -1052,7 +1052,7 @@ end)
 UICorner.Parent = ImageButton
    end)
    
-Sector11:AddToggle("white screen", _G.WhiteScreen ,function(value)
+Sector14:AddToggle("white screen", _G.WhiteScreen ,function(value)
     _G.WhiteScreen = value
 if _G.WhiteScreen == true then
     game:GetService("RunService"):Set3dRenderingEnabled(false)
