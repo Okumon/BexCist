@@ -232,6 +232,42 @@ end)
           Checka = true
       end)
   end
+
+Sector1:AddToggle("Auto Legendary Sword",getgenv().AutoBuyLegendarySword,function(x)
+        getgenv().AutoBuyLegendarySword = x
+    end)
+    
+    spawn(function()
+        while wait() do
+            if getgenv().AutoBuyLegendarySword then
+                pcall(function()
+                    local args = {
+                        [1] = "LegendarySwordDealer",
+                        [2] = "1"
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                    local args = {
+                        [1] = "LegendarySwordDealer",
+                        [2] = "2"
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                    local args = {
+                        [1] = "LegendarySwordDealer",
+                        [2] = "3"
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                    if getgenv().AutoBuyLegendarySword_Hop and getgenv().AutoBuyLegendarySword and World2 then
+                        wait(1)
+                        Hop()
+                    end
+                end)
+            end 
+        end
+    end)
+    
+    Sector1:AddToggle("Auto Legendary Sword Hop",getgenv().AutoBuyLegendarySword_Hop,function(value)
+        getgenv().AutoBuyLegendarySword_Hop = value
+    end)
   
   
       local Sector2 = Tab:CreateSector("Setting Auto Farm","Right")
