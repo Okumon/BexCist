@@ -3976,7 +3976,7 @@ coroutine.wrap(function()
         end
     end)
     
-    Swords:addButton("Buy Microchip Oder Boss",function()
+    Swords:AddButton("Buy Microchip Oder Boss",function()
     local args = {
        [1] = "BlackbeardReward",
        [2] = "Microchip",
@@ -3985,7 +3985,7 @@ coroutine.wrap(function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 end)
 
-    Swords:addButton("Start Go To Raid Oder Boss",function()
+    Swords:AddButton("Start Go To Raid Oder Boss",function()
         if World2 then
             fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon.Button.Main.ClickDetector)
         end
