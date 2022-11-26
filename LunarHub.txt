@@ -3931,39 +3931,64 @@ coroutine.wrap(function()
     
     Swords:AddSeperator("Auto Koko sword (or law)")
     
-    Swords:AddToggle("Auto law (don't buy a chip)",getgenv().Law,function(vvalue)
-        getgenv().Law = value
+    Swords:AddToggle("Auto Oder Sword (New !)", _G.AutoOderSword,function(value)
+         _G.AutoOderSword = value
+        StopTween( _G.AutoOderSword)
     end)
     
-    Swords:AddToggle("Auto law Hop",getgenv().LawHop,function(value)
-        getgenv().LawHop = value
+    Swords:AddToggle("Auto Oder Sword Hop (New !)", _G.AutoOderSwordHop,function(value)
+         _G.AutoOderSwordHop = value
     end)
     
     spawn(function()
-        pcall(function()
-            while wait() do
-                if getgenv().law then
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Order [Lv. 1250] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("rip_indra [Lv. 5000] [Raid Boss]") then
+        while wait() do
+            if  _G.AutoOderSword then
+                pcall(function()
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Order [Lv. 1250] [Raid Boss]") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == ("Order [Lv. 1250] [Raid Boss]" or v.Name == "Order [Lv. 1250] [Raid Boss]") and v.Humanoid.Health > 0 and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-                                repeat task.wait()
-                                    pcall(function()
+                            if v.Name == "Order [Lv. 1250] [Raid Boss]" then
+                                if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                    repeat task.wait()
                                         AutoHaki()
                                         EquipWeapon(_G.SelectWeapon)
-                                        Click()
                                         v.HumanoidRootPart.CanCollide = false
-                                        v.HumanoidRootPart.Size = Vector3.new(200,200,200)
-                                        topos(v.HumanoidRootPart.CFrame * CFrame.new(10,-50,-29))
+                                        v.Humanoid.WalkSpeed = 0
+                                        v.HumanoidRootPart.Size = Vector3.new(50,50,50)
+                                        topos(v.HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                                         game:GetService("VirtualUser"):CaptureController()
-                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670),workspace.CurrentCamera.CFrame)
-                                    end)
-                                until getgenv().law == false or v.Humanoid.Health <= 0
+                                        game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                        sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
+                                    until not  _G.AutoOderSword or not v.Parent or v.Humanoid.Health <= 0
+                                end
+                            end
+                        end
+                    else
+                        if game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]") then
+                            topos(game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        else
+                            if  _G.AutoOderSwordHop then
+                                Hop()
                             end
                         end
                     end
-                end
+                end)
             end
-        end)
+        end
+    end)
+    
+    Swords:addButton("Buy Microchip Oder Boss",function()
+    local args = {
+       [1] = "BlackbeardReward",
+       [2] = "Microchip",
+       [3] = "2"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+end)
+
+    Swords:addButton("Start Go To Raid Oder Boss",function()
+        if World2 then
+            fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon.Button.Main.ClickDetector)
+        end
     end)
     
 
