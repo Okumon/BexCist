@@ -7306,14 +7306,7 @@ end)
 
 
     
-        Set:addToggle("Black Screen",_G.BlackScreen,function(value)
-    _G.BlackScreen = value
-if _G.BlackScreen == true then
-    game:GetService("Players").LocalPlayer.PlayerGui.Main.Blackscreen.Size = UDim2.new(500, 0, 500, 500)
-elseif _G.BlackScreen == false then
-    game:GetService("Players").LocalPlayer.PlayerGui.Main.Blackscreen.Size = UDim2.new(1, 0, 500, 500)
-end
-end)
+
     
     Set:AddToggle("Ultra Magnet ",false,function(value)
         getgenv().UltraBring = value
