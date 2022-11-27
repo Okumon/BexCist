@@ -1164,7 +1164,3 @@ Page2:Button("Clear Dropdown",function()
     Dropdown:Clear()
 end)
 
-Page2:Button("Add Dropdown",function()
-    Dropdown:Add("Test")
-end)pdown:Add("Test")
-end)
