@@ -5899,6 +5899,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                             until not AutoFarmBoss or not v.Parent or v.Humanoid.Health <= 0
                         end
@@ -5928,6 +5930,8 @@ spawn(function()
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
+                                game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                             until not AutoAllBoss or not v.Parent or v.Humanoid.Health <= 0
                         end
                     end
