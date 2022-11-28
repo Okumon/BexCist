@@ -1704,34 +1704,46 @@ local Dungeon = win:Tab("Dungeon",[[9606629300]])
 local Shop = win:Tab("Shop",[[7294901968]])
 local Misc = win:Tab("Misc",[[9606644121]])
 
-HHOP = {
-	"Super Fast",
-	"Fast",
-	"Smooth",
-	"mobile"
-}
-Tap:Dropdown("Select Fast","mobile",HHOP,function(vu)
-    _G.Setting_table.FastAttack_Mode = vu
-    Update_Setting(getgenv()['MyName'])
-	if _G.Setting_table.FastAttack_Mode == "Fast" then
-		_G.Fast_Delay = 1
-	elseif _G.Setting_table.FastAttack_Mode == "Smooth" then
-		_G.Fast_Delay = 2
-	elseif _G.Setting_table.FastAttack_Mode == "Super Fast" then
-		_G.Fast_Delay = 3
-	elseif _G.Setting_table.FastAttack_Mode == "mobile" then
-		_G.Fast_Delay = 5
-	end
+Tap:Toggle("FastAttack","6022668898",_G.Setting_table.Defaultat,function(v)
+Defaultat = v
+_G.Setting_table.Defaultat = v
+Update_Setting(getgenv()['MyName'])
 end)
-if _G.Setting_table.FastAttack_Mode == nil then
-   _G.Setting_table.FastAttack_Mode = "mobile"
-end
-
-Tap:Toggle("FastAttack","6022668898",_G.Setting_table.FastAttack,function(t)
-      FastAttack = t
-      _G.Setting_table.FastAttack = t
-     Update_Setting(getgenv()['MyName'])
-end)
+coroutine.wrap(function()
+    local StopCamera = require(game.ReplicatedStorage.Util.CameraShaker)StopCamera:Stop()
+        for v,v in pairs(getreg()) do
+            if typeof(v) == "function" and getfenv(v).script == game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework then
+                 for v,v in pairs(debug.getupvalues(v)) do
+                    if typeof(v) == "table" then
+                        spawn(function()
+                            game:GetService("RunService").RenderStepped:Connect(function()
+                                if Defaultat then
+                                     pcall(function()
+                                         v.activeController.timeToNextAttack = -(math.huge^math.huge^math.huge)
+                                         v.activeController.attacking = false
+                                         v.activeController.increment = 4
+                                         v.activeController.blocking = false   
+                                         v.activeController.hitboxMagnitude = 150
+                                         v.activeController.humanoid.AutoRotate = true
+                                           v.activeController.focusStart = 0
+                                           v.activeController.currentAttackTrack = 0
+                                         sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRaxNerous", math.huge)
+                                     end)
+                                 end
+                             end)
+                        end)
+                    end
+                end
+            end
+        end
+    end)();
+    spawn(function()
+    game.RunService.RenderStepped:Connect(function()
+    if Defaultat then
+        Click()
+    end
+    end)
+    end)
 
 Tap:Toggle("BringMonster","6022668898",_G.Setting_table.BringMonster,function(t)
       BringMonster = t
@@ -5460,6 +5472,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                                 BoneMob = v.Name
                             until not FarmBone or not v.Parent or v.Humanoid.Health <= 0
@@ -5885,6 +5899,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                             until not AutoFarmBoss or not v.Parent or v.Humanoid.Health <= 0
                         end
@@ -5913,6 +5929,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                             until not AutoAllBoss or not v.Parent or v.Humanoid.Health <= 0
                         end
@@ -6188,6 +6206,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                             until not _G.AutoDoughtBoss or not v.Parent or v.Humanoid.Health <= 0
                         end
@@ -6626,75 +6646,4 @@ end)
 
 ----------------------------FastAttack---------------------------------
 
-local plr = game.Players.LocalPlayer
-
-local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
-local CbFw2 = CbFw[2]
-
-function GetCurrentBlade() 
-    local p13 = CbFw2.activeController
-    local ret = p13.blades[1]
-    if not ret then return end
-    while ret.Parent~=game.Players.LocalPlayer.Character do ret=ret.Parent end
-    return ret
-end
-
-function AttackNoCD() 
-    local AC = CbFw2.activeController
-    for i = 1, 1 do 
-        local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
-            plr.Character,
-            {plr.Character.HumanoidRootPart},
-            60
-        )
-        local cac = {}
-        local hash = {}
-        for k, v in pairs(bladehit) do
-            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-                table.insert(cac, v.Parent.HumanoidRootPart)
-                hash[v.Parent] = true
-            end
-        end
-        bladehit = cac
-        if #bladehit > 0 then
-            local u8 = debug.getupvalue(AC.attack, 5)
-            local u9 = debug.getupvalue(AC.attack, 6)
-            local u7 = debug.getupvalue(AC.attack, 4)
-            local u10 = debug.getupvalue(AC.attack, 7)
-            local u12 = (u8 * 798405 + u7 * 727595) % u9
-            local u13 = u7 * 798405
-            (function()
-                u12 = (u12 * u9 + u13) % 1099511627776
-                u8 = math.floor(u12 / u9)
-                u7 = u12 - u8 * u9
-            end)()
-            u10 = u10 + 1
-            debug.setupvalue(AC.attack, 5, u8)
-            debug.setupvalue(AC.attack, 6, u9)
-            debug.setupvalue(AC.attack, 4, u7)
-            debug.setupvalue(AC.attack, 7, u10)
-            pcall(function()
-                for k, v in pairs(AC.animator.anims.basic) do
-                    v:Play()
-                end                  
-            end)
-            if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then 
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
-                game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "") 
-            end
-        end
-    end
-end
-spawn(function()
-	while wait(.5) do
-		pcall(function()
-			if FastAttack then
-				repeat wait(_G.Fast_Delay)
-					AttackNoCD()
-				until not FastAttack
-			end
-		end)
-	end
-end)
 
