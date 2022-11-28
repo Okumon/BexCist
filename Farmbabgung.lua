@@ -3032,6 +3032,28 @@ Combat:Button("Refresh Player",function()
         SelectedPly:Add(v.Name)
     end
 end)
+
+Combat:Toggle("Spectate","6022668898",false,function(value)
+        SpectatePlys = value
+        local plr1 = game:GetService("Players").LocalPlayer.Character.Humanoid
+        local plr2 = game:GetService("Players"):FindFirstChild(SelectedKillPlayer)
+        repeat wait(.1)
+            game:GetService("Workspace").Camera.CameraSubject = game:GetService("Players"):FindFirstChild(SelectedKillPlayer).Character.Humanoid
+        until SpectatePlys == false 
+        game:GetService("Workspace").Camera.CameraSubject = game:GetService("Players").LocalPlayer.Character.Humanoid
+    end)
+
+                
+Combat:Toggle("Teleport","6022668898",false,function(value)
+        getgenv().TeleportPly = value
+        pcall(function()
+            if getgenv().TeleportPly then
+                repeat topos(game:GetService("Players")[SelectedKillPlayer].Character.HumanoidRootPart.CFrame) wait() until getgenv().TeleportPly == false
+            end
+            StopTween(getgenv().TeleportPly)
+        end)
+    end)
+
 Combat:Toggle("Skillaimbot","6022668898",false,function(vu)
     Skillaimbot = vu
 		if Skillaimbot then
@@ -3218,7 +3240,13 @@ end)
 Teleport:Button("Teleport To Third Sea",function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
 end)
-
+Teleport:Button("Teleport to Seabeast",function()
+        for i,v in pairs(game:GetService("Workspace").SeaBeasts:GetChildren()) do
+            if v:FindFirstChild("HumanoidRootPart") then
+                topos(v.HumanoidRootPart.CFrame*CFrame.new(0,100,0))
+            end
+        end
+    end)
 
 Teleport:Seperator("Island")
 
@@ -3885,57 +3913,14 @@ Misc:Toggle("ESP Flower","6022668898",espflower,function(a)
 		UpdateFlowerChams() 
 	end)
 Misc:Seperator("server")
-Misc:Button("Hop",function()
-Hop()
-end)
-Misc:Button("rejoin",function()
+Misc:Button("Rejoin",function()
 game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
 end)
+Misc:Button("Hop",function()
+HOP()
+end)
 Misc:Button("Hop To Lower Player",function()
-    getgenv().AutoTeleport = true
-    getgenv().DontTeleportTheSameNumber = true 
-    getgenv().CopytoClipboard = false
-    if not game:IsLoaded() then
-        print("Game is loading waiting...")
-    end
-    local maxplayers = math.huge
-    local serversmaxplayer;
-    local goodserver;
-    local gamelink = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100" 
-    function serversearch()
-        for _, v in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(gamelink)).data) do
-            if type(v) == "table" and v.playing ~= nil and maxplayers > v.playing then
-                serversmaxplayer = v.maxPlayers
-                maxplayers = v.playing
-                goodserver = v.id
-            end
-        end       
-    end
-    function getservers()
-        serversearch()
-        for i,v in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(gamelink))) do
-            if i == "nextPageCursor" then
-                if gamelink:find("&cursor=") then
-                    local a = gamelink:find("&cursor=")
-                    local b = gamelink:sub(a)
-                    gamelink = gamelink:gsub(b, "")
-                end
-                gamelink = gamelink .. "&cursor=" ..v
-                getservers()
-            end
-        end
-    end 
-    getservers()
-    if AutoTeleport then
-        if DontTeleportTheSameNumber then 
-            if #game:GetService("Players"):GetPlayers() - 4  == maxplayers then
-                return warn("It has same number of players (except you)")
-            elseif goodserver == game.JobId then
-                return warn("Your current server is the most empty server atm") 
-            end
-        end
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, goodserver)
-    end
+HopServer()
 end)
 Misc:Toggle("Rejoint Team","6022668898",true,function(value)
 _G.Team = value
@@ -6643,6 +6628,87 @@ spawn(function()
         end
     end
 end)
+
+  function HOP()
+      HopServer()
+      HopServer()
+      HopServer()
+      HopServer()
+      HopServer()
+      while wait(0.2) do
+          pcall(function()
+              HopServer()
+              if foundAnything ~= "" then
+                  HopServer()
+              end
+          end)
+      end
+  end
+
+  function HopServer()-----hopserver
+      local PlaceID = game.PlaceId
+      local AllIDs = {}
+      local foundAnything = ""
+      local actualHour = os.date("!*t").hour
+      local Deleted = false
+      function TPReturner()
+          local Site;
+          if foundAnything == "" then
+              Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+          else
+              Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+          end
+          local ID = ""
+          if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+              foundAnything = Site.nextPageCursor
+          end
+          local num = 0;
+          for i,v in pairs(Site.data) do
+              local Possible = true
+              ID = tostring(v.id)
+          if tonumber(v.maxPlayers) > tonumber(v.playing) then
+              for _,Existing in pairs(AllIDs) do
+                  if num ~= 0 then
+                      if ID == tostring(Existing) then
+                          Possible = false
+                      end
+                  else
+                      if tonumber(actualHour) ~= tonumber(Existing) then
+                          local delFile = pcall(function()
+                          -- delfile("NotSameServers.json")
+                          AllIDs = {}
+                          table.insert(AllIDs, actualHour)
+                          end)
+                      end
+                  end
+                      num = num + 1
+              end
+                  if Possible == true then
+                  table.insert(AllIDs, ID)
+                  task.wait()
+                  pcall(function()
+                  -- writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                  wait()
+                  game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                  end)
+                  wait(.1)
+              end
+          end
+      end
+  end
+                                      
+  function Teleport() 
+          while wait(1) do
+              pcall(function()
+                  TPReturner()
+                  if foundAnything ~= "" then
+                      TPReturner()
+                  end
+              end)
+          end
+      end
+      Teleport()
+  end
 
 ----------------------------FastAttack---------------------------------
 
