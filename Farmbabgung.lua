@@ -1933,6 +1933,7 @@ end
 Tap:Toggle("AutoFarm","6022668898",_G.Setting_table.FarmLevel,function(t)
       FarmLevel = t
       _G.Setting_table.FarmLevel = t
+	  _TweenCanCle()
      Update_Setting(getgenv()['MyName'])
 end)
 
