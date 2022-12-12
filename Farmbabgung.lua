@@ -6140,7 +6140,7 @@ end
   spawn(function()---new autofarm
       while task.wait() do
           pcall(function()
-              if _G.Setting_table.FarmLevel2 then
+              if FarmLevel2 then
                           if (doingquest()==false) then
                               checklevel()
                               game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
@@ -6150,10 +6150,10 @@ end
                                   ByPass(CFrameQ)
                                   if FarmStat then
                                       _TweenCanCle()
-                                      _G.Setting_table.FarmLevel2 = false
+                                      FarmLevel2 = false
                                       FarmStat = false
                                       task.wait(25)
-                                      _G.Setting_table.FarmLevel2 = true
+                                      FarmLevel2 = true
                                       FarmStat = true
                                   end
                               end
@@ -6235,11 +6235,11 @@ end
                                       UnEquipWeapon(Weapon)
                                       if FarmStat then
                                       _TweenCanCle()
-                                      _G.Setting_table.FarmLevel2 = false
+                                      FarmLevel2 = false
                                       UnEquipWeapon(Weapon)
                                       FarmStat = false
                                       task.wait(1.5)
-                                      _G.Setting_table.FarmLevel2 = true
+                                      FarmLevel2 = true
                                       FarmStat = true
                                       end
                                       end
