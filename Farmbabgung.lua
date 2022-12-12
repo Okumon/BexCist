@@ -1966,7 +1966,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Melee" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							Select Weapon = v.Name
+							Weapon = v.Name
 						end
 					end
 				end
@@ -1974,7 +1974,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Sword" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							Select Weapon = v.Name
+							Weapon = v.Name
 						end
 					end
 				end
@@ -1982,7 +1982,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Blox Fruit" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							Select Weapon = v.Name
+							Weapon = v.Name
 						end
 					end
 				end
@@ -1990,7 +1990,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Melee" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							Select Weapon = v.Name
+							Weapon = v.Name
 						end
 					end
 				end
@@ -6018,7 +6018,7 @@ spawn(function()
                         if v.Name == Mon then
                             if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
                                 repeat task.wait()
-                                	EquipWapon(_G.Setting_table.Weapon)
+                                	EquipWapon(Select Weapon)
                                     topos(v.HumanoidRootPart.CFrame * CFrame.new(0,30,5))
                                     if FarmLevel and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 250 then
                                     BringMobFarm = true
@@ -6053,7 +6053,7 @@ spawn(function()
   spawn(function()
       game:GetService("RunService").Heartbeat:Connect(function()
           pcall(function()
-              if (getgenv().Config.autofarmlevel) and _groupMon then
+              if FarmLevel2 and _groupMon then
                   checklevel()
                   for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
                       if v.Name ~= "Ice Admiral [Lv. 700] [Boss]" and v.Name ~= "Don Swan [Lv. 3000] [Boss]" and v.Name ~= "Saber Expert [Lv. 200] [Boss]" and v.Name ~= "Longma [Lv. 2000] [Boss]" and (v.HumanoidRootPart.Position-PosMon.Position).magnitude <= magbring then
