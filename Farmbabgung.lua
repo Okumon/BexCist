@@ -1955,7 +1955,7 @@ Weapon = {
 	"Fruit"
 }
 
-local SelectWeapona = Tap:Dropdown("Select Weapon",Weapon,function(value)
+local SelectWeapon = Tap:Dropdown("Select Weapon",Weapon,function(value)
 SelectWeapon = value
 end)
 
@@ -1966,7 +1966,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Melee" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							_G.Settings.Configs["Select Weapon"] = v.Name
+							Select Weapon = v.Name
 						end
 					end
 				end
@@ -1974,7 +1974,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Sword" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							_G.Settings.Configs["Select Weapon"] = v.Name
+							Select Weapon = v.Name
 						end
 					end
 				end
@@ -1982,7 +1982,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Blox Fruit" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							_G.Settings.Configs["Select Weapon"] = v.Name
+							Select Weapon = v.Name
 						end
 					end
 				end
@@ -1990,7 +1990,7 @@ task.spawn(function()
 				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 					if v.ToolTip == "Melee" then
 						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-							_G.Settings.Configs["Select Weapon"] = v.Name
+							Select Weapon = v.Name
 						end
 					end
 				end
