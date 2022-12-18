@@ -157,7 +157,7 @@ Core:Destroy()
 
 _G.Setting_table = {
    BringMonster = true,
-   FastAttack = true,
+   Defaultat = true,
    Save_Member = true,
    Show_Damage = true,
    NoClip = true,
@@ -1882,7 +1882,7 @@ coroutine.wrap(function()
                                          v.activeController.blocking = false   
                                          v.activeController.hitboxMagnitude = 150
                                          v.activeController.humanoid.AutoRotate = true
-                                           v.activeController.focusStart = 0
+                                           v.activeController.focusStart = 1655503339.0980349
                                            v.activeController.currentAttackTrack = 0
                                          sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRaxNerous", math.huge)
                                      end)
@@ -5526,7 +5526,7 @@ game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                     if FarmLevel and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 250 then
                                     BringMobFarm = true
 									end
-									FastAttack = true
+									Defaultat = true
                                     game:GetService'VirtualUser':CaptureController()
                                     game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 until not AutoFarm or not v.Humanoid.Health <= 0
