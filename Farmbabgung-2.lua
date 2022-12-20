@@ -1710,7 +1710,7 @@ HHOP = {
 	"3",
 	"5"
 }
-Tap:Dropdown("Select Speed Fast","3",HHOP,function(vu)
+Tap:Dropdown("Select Speed Fast","2",HHOP,function(vu)
     _G.Setting_table.FastAttack_Mode = vu
     Update_Setting(getgenv()['MyName'])
 	if _G.Setting_table.FastAttack_Mode == "1" then
@@ -1724,7 +1724,7 @@ Tap:Dropdown("Select Speed Fast","3",HHOP,function(vu)
 	end
 end)
 if _G.Setting_table.FastAttack_Mode == nil then
-   _G.Setting_table.FastAttack_Mode = "5"
+   _G.Setting_table.FastAttack_Mode = "2"
 end
 
 Tap:Toggle("FastAttack","6022668898",_G.Setting_table.FastAttack,function(t)
