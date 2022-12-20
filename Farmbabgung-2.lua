@@ -1710,7 +1710,7 @@ HHOP = {
 	"3",
 	"5"
 }
-Tap:Dropdown("Select Fast","mobile",HHOP,function(vu)
+Tap:Dropdown("Select Speed Fast","3",HHOP,function(vu)
     _G.Setting_table.FastAttack_Mode = vu
     Update_Setting(getgenv()['MyName'])
 	if _G.Setting_table.FastAttack_Mode == "1" then
