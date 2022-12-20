@@ -1705,10 +1705,10 @@ local Shop = win:Tab("Shop",[[7294901968]])
 local Misc = win:Tab("Misc",[[9606644121]])
 
 HHOP = {
-	"Super Fast",
-	"Fast",
-	"Smooth",
-	"mobile"
+	"1",
+	"2",
+	"3",
+	"5"
 }
 Tap:Dropdown("Select Fast","mobile",HHOP,function(vu)
     _G.Setting_table.FastAttack_Mode = vu
@@ -1724,7 +1724,7 @@ Tap:Dropdown("Select Fast","mobile",HHOP,function(vu)
 	end
 end)
 if _G.Setting_table.FastAttack_Mode == nil then
-   _G.Setting_table.FastAttack_Mode = "3"
+   _G.Setting_table.FastAttack_Mode = "5"
 end
 
 Tap:Toggle("FastAttack","6022668898",_G.Setting_table.FastAttack,function(t)
