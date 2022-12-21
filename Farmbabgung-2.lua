@@ -1988,45 +1988,38 @@ end)
 
 
 Tap:Seperator("Lv ExpX2")
-local XP = {
-        "EXP_5B",
-        "Sub2Fer999",
-        "JCWK",
-        "Starcodeheo",
-        "fudd10_v2",
+
+local x2Code = {
+        "3BVISITS",
+        "UPD16",
         "FUDD10",
         "BIGNEWS",
         "THEGREATACE",
         "SUB2GAMERROBOT_EXP1",
-        "Sub2OfficialNoobie",
         "StrawHatMaine",
+        "Sub2OfficialNoobie",
         "SUB2NOOBMASTER123",
         "Sub2Daigrock",
         "Axiore",
-        "TantaiGaming"
+        "TantaiGaming",
+        "STRAWHATMAINE",
+        "Enyu_is_Pro",
+        "Magicbus",
+        "Sub2Fer999",
+        "Starcodeheo",
+        "JCWK",
+        "KittGaming",
+        "Bluxxy",
+        "TheGreatAce"
     }
- 
- Tap:Slider("LvRedeem",1,2400,1,function(value)
- LvRedeem = value
- end)
- Tap:Toggle("LvRedeem Start","6022668898",_G.Setting_table.LvRedeem2,function(value)
-   LvRedeem2 = value
-  _G.Setting_table.LvRedeem2 = value
-   Update_Setting(getgenv()['MyName'])
-spawn(function()
-		while wait(.1) do
-			if LvRedeem2 then
-				if game.Players.localPlayer.Data.Level.Value >= LvRedeem then
-					function RedeemCode(value)
-                      game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(value)
-                     end
-                      for i,v in pairs(XP) do
-                      RedeemCode(v)
-                     end
-				end
-			end
-		end
-	end)
+function RedeemCode(value)
+       game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(value)
+end
+    
+Tap:Button("Redeem All Code",function(a)
+     for i,v in pairs(x2Code) do
+        RedeemCode(v)
+    end
 end)
 
 Tap:Seperator("Fighting Style")
