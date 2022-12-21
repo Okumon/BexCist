@@ -3020,6 +3020,28 @@ Combat:Button("Refresh Player",function()
         SelectedPly:Add(v.Name)
     end
 end)
+
+Combat:Toggle("Spectate","6022668898",false,function(value)
+        SpectatePlys = value
+        local plr1 = game:GetService("Players").LocalPlayer.Character.Humanoid
+        local plr2 = game:GetService("Players"):FindFirstChild(SelectedKillPlayer)
+        repeat wait(.1)
+            game:GetService("Workspace").Camera.CameraSubject = game:GetService("Players"):FindFirstChild(SelectedKillPlayer).Character.Humanoid
+        until SpectatePlys == false 
+        game:GetService("Workspace").Camera.CameraSubject = game:GetService("Players").LocalPlayer.Character.Humanoid
+    end)
+
+                
+Combat:Toggle("Teleport","6022668898",false,function(value)
+        getgenv().TeleportPly = value
+        pcall(function()
+            if getgenv().TeleportPly then
+                repeat topos(game:GetService("Players")[SelectedKillPlayer].Character.HumanoidRootPart.CFrame) wait() until getgenv().TeleportPly == false
+            end
+            StopTween(getgenv().TeleportPly)
+        end)
+    end)
+
 Combat:Toggle("Skillaimbot","6022668898",false,function(vu)
     Skillaimbot = vu
 		if Skillaimbot then
@@ -5086,7 +5108,7 @@ end
 function topos(Pos)
     Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
         if game.Players.LocalPlayer.Character.Humanoid.Sit == true then game.Players.LocalPlayer.Character.Humanoid.Sit = false end
-        pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/210, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
+        pcall(function() tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/400, Enum.EasingStyle.Linear),{CFrame = Pos}) end)
         tween:Play()
         if Distance <= 110 then
             tween:Cancel()
@@ -5460,6 +5482,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                                 BoneMob = v.Name
                             until not FarmBone or not v.Parent or v.Humanoid.Health <= 0
@@ -5885,6 +5909,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                             until not AutoFarmBoss or not v.Parent or v.Humanoid.Health <= 0
                         end
@@ -5913,6 +5939,8 @@ spawn(function()
                                 v.HumanoidRootPart.CanCollide = false
                                 v.Humanoid.WalkSpeed = 0
                                 v.Head.CanCollide = false
+								game:GetService'VirtualUser':CaptureController()
+                                game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
                                 topos(v.HumanoidRootPart.CFrame * CFrame.new(0,35,5))
                             until not AutoAllBoss or not v.Parent or v.Humanoid.Health <= 0
                         end
