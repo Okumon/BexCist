@@ -1705,26 +1705,26 @@ local Shop = win:Tab("Shop",[[7294901968]])
 local Misc = win:Tab("Misc",[[9606644121]])
 
 HHOP = {
+	"0.5",
 	"1",
 	"2",
-	"3",
-	"5"
+	"3"
 }
-Tap:Dropdown("Select Speed Fast","2",HHOP,function(vu)
+Tap:Dropdown("Select Speed Fast","0.5",HHOP,function(vu)
     _G.Setting_table.FastAttack_Mode = vu
     Update_Setting(getgenv()['MyName'])
-	if _G.Setting_table.FastAttack_Mode == "1" then
+	if _G.Setting_table.FastAttack_Mode == "0.5" then
+		_G.Fast_Delay = 0.50
+	elseif _G.Setting_table.FastAttack_Mode == "1" then
 		_G.Fast_Delay = 1
 	elseif _G.Setting_table.FastAttack_Mode == "2" then
 		_G.Fast_Delay = 2
 	elseif _G.Setting_table.FastAttack_Mode == "3" then
 		_G.Fast_Delay = 3
-	elseif _G.Setting_table.FastAttack_Mode == "5" then
-		_G.Fast_Delay = 5
 	end
 end)
 if _G.Setting_table.FastAttack_Mode == nil then
-   _G.Setting_table.FastAttack_Mode = "2"
+   _G.Setting_table.FastAttack_Mode = "1"
 end
 
 Tap:Toggle("FastAttack","6022668898",_G.Setting_table.FastAttack,function(t)
