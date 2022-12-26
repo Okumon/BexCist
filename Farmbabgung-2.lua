@@ -1,22 +1,28 @@
-(getgenv()).Key = "testD"
+_G.Key = "test"
 
 local keys = {
-     "testkey",
-     "testD",
+    "test",
+    "kuy"
 }
 
 local counter = 1
 local keyCheck
 for i,v in pairs(keys) do
     if counter == #keys then
-        keys = ""
-        game.Players.LocalPlayer:Kick("please enter your key")
-    else
-        if v == getgenv().Key then 
-            -- check succes
-            print("Succesfully, enjoy :]")
-            -- your script
-           
+        -- NOT WHITELIST
+        game.Players.LocalPlayer:Kick("test")
+        else
+        if v == _G.Key then
+            -- WHITELIST
+            print("")
+            keyCheck = _G.Key
+            key = ""
+            else
+            counter = counter +1
+        end
+    end
+end
+
 _G.Setting_table = {
    BringMonster = true,
    FastAttack = true,
