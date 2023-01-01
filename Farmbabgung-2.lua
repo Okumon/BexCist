@@ -1,27 +1,3 @@
-_G.Key = "test"
-
-local keys = {
-    "test",
-    "kuy"
-}
-
-local counter = 1
-local keyCheck
-for i,v in pairs(keys) do
-    if counter == #keys then
-        -- NOT WHITELIST
-        game.Players.LocalPlayer:Kick("test")
-        else
-        if v == _G.Key then
-            -- WHITELIST
-            print("")
-            keyCheck = _G.Key
-            key = ""
-            else
-            counter = counter +1
-        end
-    end
-end
 
 _G.Setting_table = {
    BringMonster = true,
@@ -1735,7 +1711,7 @@ HHOP = {
 	"2",
 	"3"
 }
-Tap:Dropdown("Select Speed Fast","0.5",HHOP,function(vu)
+Tap:Dropdown("Select Speed Fast","3",HHOP,function(vu)
     _G.Setting_table.FastAttack_Mode = vu
     Update_Setting(getgenv()['MyName'])
 	if _G.Setting_table.FastAttack_Mode == "0.5" then
@@ -1749,7 +1725,7 @@ Tap:Dropdown("Select Speed Fast","0.5",HHOP,function(vu)
 	end
 end)
 if _G.Setting_table.FastAttack_Mode == nil then
-   _G.Setting_table.FastAttack_Mode = "1"
+   _G.Setting_table.FastAttack_Mode = "3"
 end
 
 Tap:Toggle("FastAttack","6022668898",_G.Setting_table.FastAttack,function(t)
